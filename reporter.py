@@ -8,9 +8,6 @@ from dotenv import load_dotenv
 
 
 class Reporter:
-
-    load_dotenv()
-
     def __init__(self):
         self.msg = EmailMessage()
         self.msg["Subject"] = os.getenv("SUBJECT")
@@ -32,7 +29,9 @@ class Reporter:
         for file in self.files:
             mime_type, _ = mimetypes.guess_type(file)
             mime_type, mime_subtype = mime_type.split("/")
-            with open(f"{os.getenv('REPORT_FOLDER')}{file}", "rb") as attachment:
+            with open(
+                os.path.join(os.getenv("REPORT_FOLDER"), file), "rb"
+            ) as attachment:
                 self.msg.add_attachment(
                     attachment.read(),
                     maintype=mime_type,
@@ -48,11 +47,12 @@ class Reporter:
 
 
 if __name__ == "__main__":
+    load_dotenv()
     reporter = Reporter()
     try:
         reporter.attach_files()
         reporter.send_email()
-        print("[+] Email success sended.")
+        print("[+] Email sent successfully.")
     except (Exception) as e:
         print(e)
-        print("[-] Email not sended.")
+        print("[-] Email not sent.")

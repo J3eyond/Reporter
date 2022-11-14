@@ -24,7 +24,7 @@ PASSWORD='Account password'
 SUBJECT='Email subject'
 RECEIVER='Email receiver'
 MESSAGE='Text for email message'
-FOLDER='Your path folder'
+REPORT_FOLDER='Your path folder'
 </pre>
 <h2>Requirements</h2>
 <hr>

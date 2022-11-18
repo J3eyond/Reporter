@@ -32,14 +32,15 @@ def attach_files():
 
 
 def search_files(folder):
+
     return [
         file
         for file in os.listdir(folder)
-        if os.path.isfile(os.path.join(os.getenv(folder), file))
+        if os.path.isfile(os.path.join(folder, file))
     ]
 
 
 if __name__ == "__main__":
     load_dotenv()
-    search_files("files")
-    print(type(search_files))
+    search_files(os.getenv("REPORT_FOLDER"))
+    print(search_files(os.getenv("REPORT_FOLDER")))

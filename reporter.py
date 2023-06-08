@@ -30,14 +30,16 @@ class Reporter:
 
     def attach_files(self):
         if len(self.files) > 1:
-            print('[*] Attaching files to email.')
+            print("[*] Attaching files to email.")
             for file in self.files:
                 if file == "README.md":
                     pass
                 else:
                     mime_type, _ = mimetypes.guess_type(file)
                     mime_type, mime_subtype = mime_type.split("/")
-                    with open(f"{os.getenv('REPORT_FOLDER')}{file}", "rb") as attachment:
+                    with open(
+                        f"{os.getenv('REPORT_FOLDER')}{file}", "rb"
+                    ) as attachment:
                         self.msg.add_attachment(
                             attachment.read(),
                             maintype=mime_type,
@@ -45,7 +47,7 @@ class Reporter:
                             filename=file,
                         )
         else:
-            print('[-] Attachment files not found.')
+            print("[-] Attachment files not found.")
 
     def send_email(self):
         with smtplib.SMTP(self.smtp_server, self.port) as server:
@@ -57,9 +59,9 @@ class Reporter:
 if __name__ == "__main__":
     reporter = Reporter()
     try:
-        print('[*] Connecting to smtp server.')
+        print("[*] Connecting to smtp server.")
         reporter.attach_files()
-        print('[*] Sending email.')
+        print("[*] Sending email.")
         reporter.send_email()
         print("[+] Email successfully sent.")
     except (Exception) as e:

@@ -1,0 +1,1 @@
+This folder contains your files to send.
